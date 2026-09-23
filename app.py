@@ -116,7 +116,7 @@ elif menu == "🧠 1. Inteligencia":
     if not df.empty:
        st.table(df) 
 
-elif menu == "📰 2. Monitoreo de medios":
+
   
 elif menu == "📰 2. Monitoreo de medios":
     st.header("📰 Monitoreo de medios")
