@@ -90,7 +90,7 @@ if menu == "🏠 Panel":
     for name, df in [("Inteligencia", intel), ("Medios", media), ("Contenidos", content)]:
         if not df.empty:
             st.markdown(f"**{name}**")
-            st.dataframe(df.head(5), use_container_width=True, hide_index=True)
+            st.table(df.head(5))
 
 elif menu == "🧠 1. Inteligencia":
     st.header("🧠 Inteligencia comunicacional")
