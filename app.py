@@ -117,13 +117,7 @@ elif menu == "🧠 1. Inteligencia":
        st.table(df) 
 
 elif menu == "📰 2. Monitoreo de medios":
-    st.header("📰 Monitoreo de medios")
-    st.write("Puedes cargar fuentes RSS y convertir sus titulares en una bandeja de seguimiento.")
-
-    rss = st.text_input("URL de fuente RSS", placeholder="https://ejemplo.com/rss")
-
-if "rss_results" not in st.session_state:
-    st.session_state.rss_results = []
+  
 elif menu == "📰 2. Monitoreo de medios":
     st.header("📰 Monitoreo de medios")
     st.write("Puedes cargar fuentes RSS y convertir sus titulares en una bandeja de seguimiento.")
