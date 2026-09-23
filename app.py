@@ -121,25 +121,45 @@ elif menu == "📰 2. Monitoreo de medios":
     st.write("Puedes cargar fuentes RSS y convertir sus titulares en una bandeja de seguimiento.")
 
     rss = st.text_input("URL de fuente RSS", placeholder="https://ejemplo.com/rss")
-    if st.button("Consultar RSS") and rss:
-        try:
-            items = rss_items(rss)
-            if not items:
-                st.warning("No se encontraron entradas.")
-            else:
-                for item in items:
-                    with st.container(border=True):
-                        st.markdown(f"**{item['title']}**")
-                        st.caption(f"{item['source']} · {item['published']}")
-                        if item["url"]:
-                            st.markdown(item["url"])
-                        if st.button("Guardar en monitoreo", key=item["url"]):
-                            add("media",
-                                ["created_at","title","source","url","topic","status","notes"],
-                                [datetime.now().isoformat(timespec="minutes"), item["title"], item["source"], item["url"], "", "Pendiente", ""])
-                            st.success("Guardado.")
-        except Exception as e:
-            st.error(f"No se pudo consultar RSS: {e}")
+
+if "rss_results" not in st.session_state:
+    st.session_state.rss_results = []
+
+if st.button("Consultar RSS") and rss:
+    try:
+        st.session_state.rss_results = rss_items(rss)
+
+        if not st.session_state.rss_results:
+            st.warning("No se encontraron entradas.")
+    except Exception as e:
+        st.session_state.rss_results = []
+        st.error(f"No se pudo consultar RSS: {e}")
+
+items = st.session_state.rss_results
+
+for item in items:
+    with st.container(border=True):
+        st.markdown(f"**{item['title']}**")
+        st.caption(f"{item['source']} · {item['published']}")
+
+        if item["url"]:
+            st.markdown(item["url"])
+
+        if st.button("Guardar en monitoreo", key=item["url"]):
+            add(
+                "media",
+                ["created_at", "title", "source", "url", "topic", "status", "notes"],
+                [
+                    datetime.now().isoformat(timespec="minutes"),
+                    item["title"],
+                    item["source"],
+                    item["url"],
+                    "",
+                    "Nuevo",
+                    ""
+                ]
+            )
+            st.success("Guardado.")
     st.divider()
     st.subheader("Fuentes configuradas")
     st.info("En la siguiente fase podemos crear un catálogo de fuentes, actualización automática, deduplicación y alertas.")
