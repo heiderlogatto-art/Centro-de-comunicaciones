@@ -138,7 +138,8 @@ elif menu == "📰 2. Monitoreo de medios":
                                 ["created_at","title","source","url","topic","status","notes"],
                                 [datetime.now().isoformat(timespec="minutes"), item["title"], item["source"], item["url"], "", "Pendiente", ""])
                             st.success("Guardado.")
-
+        except Exception as e:
+            st.error(f"No se pudo consultar RSS: {e}")
     st.divider()
     st.subheader("Fuentes configuradas")
     st.info("En la siguiente fase podemos crear un catálogo de fuentes, actualización automática, deduplicación y alertas.")
