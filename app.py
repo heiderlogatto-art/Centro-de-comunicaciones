@@ -114,7 +114,7 @@ elif menu == "🧠 1. Inteligencia":
     st.divider()
     df = read_table("intelligence")
     if not df.empty:
-        st.dataframe(df, use_container_width=True, hide_index=True)
+       st.table(df) 
 
 elif menu == "📰 2. Monitoreo de medios":
     st.header("📰 Monitoreo de medios")
@@ -146,7 +146,7 @@ elif menu == "📰 2. Monitoreo de medios":
 
     df = read_table("media")
     if not df.empty:
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        st.table(df)
 
 elif menu == "✍️ 5. Producción de contenidos":
     st.header("✍️ Producción de contenidos")
